@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Mini Photobooth </title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+	<!--MAIN: Kotak besar untuk bungkus semua app photobooth -->
+	<div id="photobooth-app">
+
+		<!-- ================================================================================== -->
+		<!-- SCREEN 1: MAIN CAMERA VIEW                                                         -->
+		<!-- ================================================================================== -->
+		<div id="screen-camera" class="screen">
+		<h2> Take Your Photo, Smile! </h2>
+		
+			<!-- Tempat paparan live webcam -->
+			<div class="camera-box">
+				<video id="webcam" autoplay playsinline></video>
+			</div>
+
+			<!-- Butang untuk tangkap gambar -->
+			<button id="btn-capture"> Capture Photo </button>
+		</div>
+
+		
+		<!-- ================================================================================== -->
+		<!-- SCREEN 2: EDITING (FILTER, STICKER, FRAME)                                         -->
+		<!-- ================================================================================== -->
+		<!-- Note: we will add a "hide" class in css later to hide this screen initially        -->
+		<div id="screen-editor" class="screen">
+			<h2> Edit Your Photo </h2> 
+
+			<!-- Canvas: where JS draws the captured image + filters + stickers +  frames   -->
+			<div class="canvas-box">
+				<canvas id="photo-canvas"></canvas>
+			</div>
+
+			<!-- Editing tools menu panel -->
+			<div class="editor-controls">
+
+				<!-- Filter selection group -->   
+				<div class="control-group">
+					<h3> Select Filter </h3>
+					<div id="filter-options" class="grid-options">
+						<button class="filter-item"> Normal </button>
+						<button class="filter-item"> B&W </button>
+						<button class="filter-item"> Vintage </button>
+						<button class="filter-item"> K-Style </button>
+					</div>
+				</div>
+	
+				<!-- Sticker selection group -->
+				<div class="sticker-options" class="grid-options">
+					<h3> Select Sticker </h3>
+					<div id="sticker-options" class="grid-options">
+						<button class="sticker-item"> !!!!!! Love </button>
+						<button class="sticker-item"> !!!!!! Star </button>
+					</div>
+				</div>
+
+				<!-- Frame selection group -->
+				<div class="frame-options">
+					<h3> Select Frame </h3>
+					<div id="frame-options" class="grid-options">
+						<button class="frame-item"> Classic </button>
+						<button class="frame-item"> Retro </button>
+					</div>
+				</div>
+			</div>
+	
+			<!-- Navigation menu filter/sticker/frame di Bawah skrin>
+			<div class="tab-menu">
+				<span> filter </span> | <span> sticker </span> | <span> frame </span>
+			</div>
+
+			<button id="btn-editor-done"> Done </button>
+		</div>
+
+	
+		<!-- ================================================================================== -->
+		<!-- SCREEN 3: FINISH AND SAVE                                                          -->
+		<!-- ================================================================================== -->
+		<div id="screen-finish" class="screen">
+			<h2> Your Photobooth Has Done! </h2>
+		
+			<div class="finish-actions">
+				<!-- format save tukar ke jpeg/png -->
+				<button id="btn-save-png"> save picture (PNG) </button>
+				<button id="btn-save-jpeg"> save picture (JPEG) </button>
+				<button id="btn-save-video"> save video </button>
+			</div>
+
+			<!-- validate email -->
+			<div class="email-section">
+				<label for="emailInput"> Enter your email </label>
+				<input type="email" id="emailInput" placeholder="youremail@gmail.com">
+				<button id="btn-submit-email"> Submit </button>
+			</div>
+		</div>
+
+	</div>
+
+	
+	<script src="script.js"> </script>
+</body>
+</html>                                     
