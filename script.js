@@ -55,35 +55,57 @@ startCamera ();
 // 4. FUNGSI TANGKAP GAMBAR 
 // ================================================================================== 
 btCapture.addEventListener('click', () => {
-	<-- Tetapkan size canvas ikut resolusi sebenar camera -->
+	// Tetapkan size canvas ikut resolusi sebenar camera 
 	canvas.width=video.videoWidth || 640;
 	canvas.height=video.videoHeight || 480;
 
-	<-- Lukis video ke dalam canvas secara terbalik (mirror mode) -->
+	// Lukis video ke dalam canvas secara terbalik (mirror mode) 
+	ctx.save();
+	ctx.translate(canvas.width, 0);
+	ctx.scale(-1,1);
+	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+	ctx.restore();
+
+	// Simpan salinan gambar asal so boleh tukar filter/sticker
+	capturedImage=new Image();
+	capturedImage.src=canvas.toDataURL('image/png');
+	
+	// Tukar dari Screen 1 ke Screen 2
+	screenCamera.classList.add('hide');
+	screenEditor.classList.remove('hide');
+});
+
+
+// ================================================================================== 
+// 5. FUNGSI LUKIS SEMULA EDITOR (FILTER, STICKER, FRAME)
+// ================================================================================== 
+function renderCanvas() {
+	if (!capturedImage) return;
+	
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.save();
 
+	// 1. Guna filter
+	if (currentFilter==='B&W') {
+		ctx.filter='grayscale(100%) contarst(110%)';
+	} else if (currentFilter==='Vintage') {
+		ctx.filter='sepia(65%) contarst(95%) brightness(105%)';
+	} else if (currentFilter==='K-Style') {
+		ctx.filter='brightness(112%) contrast(92%) saturate(115%)';
+	} else {
+		ctx.filter='none';
+	}
 
+	// Lukis semula gambar asal dengan filter yang dipilih
+	ctx.drawImage(capturedImage, 0, 0, canvas.width, canvas.height);
+	ctx.filter='none'; //reset filter so x kena kat frame and sticker
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// 2. Guna frame
+	if (currentFrame==='Classic') {
+		ctx.strokeStyle='#ffffff';
+		ctx.lineWidth=30;
+		ctx.strokeRect(0, 0, canvas.width, canvas.height);
+	} else if (currentFrame==='Retro') {
+		ctx.strokeStyle='#f3ebd1';
 
 
